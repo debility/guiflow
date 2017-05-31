@@ -1,4 +1,4 @@
-var fs = require("fs");
+var fs = require('fs');
 var electron = require('electron');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
@@ -84,7 +84,7 @@ var fileMenu = {
                 properties: ['openFile'],
                 filters: [{
                     name: 'Documents',
-                    extensions: ['txt', 'md', 'text']
+                    extensions: ['txt', 'md', 'text', 'uiflow']
                 }, ],
             }, function(fileNames) {
                 if (fileNames) {

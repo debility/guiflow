@@ -1,9 +1,10 @@
-var $ = require("./jquery-2.1.4.min");
-var fs = require("fs");
+var $ = require('./jquery-2.1.4.min');
+var fs = require('fs');
 var EventEmitter = require('events');
-var flumine = require("flumine");
+var flumine = require('flumine');
+require('electron');
 var dialog = require('electron').remote.dialog;
-var clipboard = require("clipboard");
+var clipboard = require('electron').clipboard;
 require('ace-min-noconflict');
 require('ace-min-noconflict/theme-monokai');
 
@@ -13,18 +14,18 @@ var EDITOR_FILE_VALUE;
 
 var emitter = new EventEmitter();
 
-$(window).on("load", function() {
-    editor = ace.edit("text");
+$(window).on('load', function() {
+    editor = ace.edit('text');
     editor.$blockScrolling = Infinity;
-    if (process.platform === "darwin") {
-        editor.commands.bindKey("Ctrl-P", "golineup");
+    if (process.platform === 'darwin') {
+        editor.commands.bindKey('Ctrl-P', 'golineup');
     }
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme('ace/theme/monokai');
     setInterval(function() {
         if (editor.getValue() !== EDITOR_FILE_VALUE) {
-            emitter.emit("diff", EDITOR_FILE_NAME);
+            emitter.emit('diff', EDITOR_FILE_NAME);
         } else {
-            emitter.emit("same", EDITOR_FILE_NAME);
+            emitter.emit('same', EDITOR_FILE_NAME);
         }
     }, 1000);
     var PREV = editor.getValue();
@@ -32,7 +33,7 @@ $(window).on("load", function() {
         now = editor.getValue();
         if (PREV !== now) {
             PREV = now;
-            emitter.emit("change", now);
+            emitter.emit('change', now);
         }
     }, 500);
 
@@ -57,10 +58,10 @@ var getFileName = function(forceDialog) {
             return ok(EDITOR_FILE_NAME);
         } else {
             dialog.showSaveDialog({
-                title: "save file",
+                title: 'save file',
                 filters: [{
                     name: 'Documents',
-                    extensions: ['txt', 'md', 'text']
+                    extensions: ['txt', 'md', 'text', 'uiflow']
                 }, ],
             }, function(fileName) {
                 if (fileName) {
@@ -75,7 +76,7 @@ var getFileName = function(forceDialog) {
 
 var saveFile = flumine(function(d, ok, ng) {
     if (!d) {
-        return ok("canceled");
+        return ok('canceled');
     }
     var code = editor.getValue();
     fs.writeFile(d, code, function(err) {
