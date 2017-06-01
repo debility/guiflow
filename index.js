@@ -35,7 +35,7 @@ var mainMenu = {
       dialog.showMessageBox({
         type: "info",
         title: "about guiflow",
-        message: "version : 0.01",
+        message: "version : 0.1.4",
         buttons: ["close"]
       });
     }
