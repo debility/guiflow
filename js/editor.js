@@ -157,12 +157,15 @@ var app = module.exports = {
     editor.focus();
     editor.scrollToLine(d, true, true);
   }),
-  insert: waitEditorReady.through(function(d) {
-    if (!editor.getValue().match(d)) {
-      editor.setValue(editor.getValue() + d);
-      editor.navigateLineEnd();
-      editor.focus();
+  insertIfNotExist: waitEditorReady.through(function(d) {
+    if (editor.getValue().indexOf(d.trim()) == -1) {
+      editor.insert(d);
     }
+  }),
+  insert: waitEditorReady.through(function(d) {
+    editor.setValue(editor.getValue() + d);
+    editor.navigateLineEnd();
+    editor.focus();
   }),
   on: function(channel, cb) {
     emitter.on(channel, cb);

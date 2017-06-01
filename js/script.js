@@ -142,6 +142,6 @@ $(function() {
     editor.navigateTo(lines);
   });
   diagram.on('end-click', function(text) {
-    editor.insert(text);
+    editor.insertIfNotExist(text);
   });
 });
