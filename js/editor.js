@@ -158,9 +158,11 @@ var app = module.exports = {
     editor.scrollToLine(d, true, true);
   }),
   insert: waitEditorReady.through(function(d) {
-    editor.setValue(editor.getValue() + d);
-    editor.navigateLineEnd();
-    editor.focus();
+    if (!editor.getValue().match(d)) {
+      editor.setValue(editor.getValue() + d);
+      editor.navigateLineEnd();
+      editor.focus();
+    }
   }),
   on: function(channel, cb) {
     emitter.on(channel, cb);
