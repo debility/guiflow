@@ -1,4 +1,5 @@
-var $ = require('./jquery-2.1.4.min');
+var jQuery = require('jquery');
+var $ = jQuery;
 var fs = require('fs');
 var EventEmitter = require('events');
 var flumine = require('flumine');

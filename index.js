@@ -164,8 +164,9 @@ var createWindow = function(fileName) {
   }
 };
 
+var fileName = null;
 app.on('ready', function() {
-  var fileName = process.argv[2];
+  fileName = fileName || process.argv[2];
   var builtMenu = Menu.buildFromTemplate([
     mainMenu, fileMenu, editMenu
   ]);
@@ -173,5 +174,9 @@ app.on('ready', function() {
   app.on("browser-window-focus", function() {});
   Menu.setApplicationMenu(builtMenu);
   var firstWindow = createWindow(fileName);
+});
 
+app.on('open-file', function(event, path) {
+  event.preventDefault();
+  fileName = path;
 });
