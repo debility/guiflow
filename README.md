@@ -5,7 +5,7 @@
 
 # download
 
-[ver0.1.1](https://github.com/hirokidaichi/guiflow/releases/tag/v_0.1.1)
+[latest](https://github.com/muran001/guiflow/releases)
 
 # see
 
